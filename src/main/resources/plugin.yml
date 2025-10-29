@@ -1,0 +1,21 @@
+name: RegionPlus
+version: '1.0.0'
+main: dev.akatriggered.regionplus.RegionPlus
+api-version: '1.16'
+description: Lightweight WorldGuard addon with advanced placeholders and region tracking
+author: akatriggered
+website: https://github.com/AkaTriggered/RegionPlus
+
+depend: [WorldGuard]
+softdepend: [PlaceholderAPI]
+
+commands:
+  regionplus:
+    description: RegionPlus debug command
+    usage: /regionplus
+    aliases: [rp]
+
+permissions:
+  regionplus.admin:
+    description: Administrative access
+    default: op

@@ -1,102 +1,72 @@
-# RegionPlus - Plugin Introduction
+# RegionPlus
 
-## 🎯 What Problem Does RegionPlus Solve?
+A lightweight WorldGuard addon that provides advanced placeholders and region tracking functionality.
 
-**The Problem**: WorldGuard is powerful for region protection, but lacks dynamic integration with other plugins. Server owners struggle to:
-- Display real-time region information in scoreboards
-- Create region-based chat formats
-- Show player counts per region
-- Build conditional systems based on region data
-- Access region properties through placeholders
+## Features
 
-**The Solution**: RegionPlus bridges this gap by providing a comprehensive placeholder system that makes WorldGuard regions interactive and dynamic.
+- **Real-time Region Tracking**: Efficiently tracks players in WorldGuard regions
+- **Comprehensive Placeholders**: 10+ placeholders for region information
+- **Optimized Performance**: Minimal memory footprint and CPU usage
+- **PlaceholderAPI Integration**: Full compatibility with PlaceholderAPI
 
-## 🏗️ Architecture & Design
+## Placeholders
 
-### Core Components
-1. **RegionTracker** - Efficiently monitors player movement and region changes
-2. **PlaceholderExpansion** - Provides 20+ placeholders for region data
-3. **Event System** - Real-time updates with minimal performance impact
+| Placeholder | Description | Example |
+|-------------|-------------|---------|
+| `%regionplus_current_region%` | Current region name | `spawn` |
+| `%regionplus_current_regions%` | All current regions | `spawn, shop` |
+| `%regionplus_region_count%` | Number of regions player is in | `2` |
+| `%regionplus_players_<region>%` | Players in specific region | `5` |
+| `%regionplus_in_<region>%` | If player is in region | `true` |
+| `%regionplus_priority_<region>%` | Region priority | `10` |
+| `%regionplus_owner_<region>%` | Region owner | `player123` |
+| `%regionplus_is_owner_<region>%` | If player owns region | `true` |
+| `%regionplus_is_member_<region>%` | If player is member | `false` |
+| `%regionplus_total_regions%` | Total regions on server | `25` |
 
-### Performance Philosophy
-- **Memory First**: Uses ConcurrentHashMap for thread-safe, low-memory tracking
-- **CPU Optimized**: Only processes on meaningful movement (block changes)
-- **Zero Database**: All data stored in memory for instant access
-- **Lazy Loading**: Regions loaded on-demand, not pre-cached
+## Requirements
 
-## 🎨 Use Cases & Applications
+- **WorldGuard** (Required)
+- **PlaceholderAPI** (Optional but recommended)
+- **Java 17+**
+- **Paper/Spigot 1.16+**
 
-### 1. Dynamic Scoreboards
-Transform static scoreboards into live region dashboards showing current location, player counts, and region properties.
-### 2. Region-Based Chat Systems
-Create immersive chat formats that display region names, making conversations location-aware.
-### 3. Conditional Plugin Integration
-Enable other plugins to react to region data - permissions, commands, GUIs, and more.
-### 4. Server Analytics
-Track region popularity, player distribution, and usage patterns through placeholders.
-### 5. Interactive GUIs
-Build region browsers, teleport menus, and information panels with live data.
-## 🔧 Technical Specifications
+## Installation
 
-### Dependencies
-- **WorldGuard 7.0+** (Hard dependency)
-- **PlaceholderAPI 2.11+** (Soft dependency, recommended)
-- **Java 17+** (Runtime requirement)
-- **Paper/Spigot 1.16+** (Server compatibility)
+1. Download RegionPlus.jar
+2. Place in your `plugins/` folder
+3. Restart your server
+4. Placeholders are automatically available
 
-### Performance Metrics
-- **Memory Usage**: ~1.8MB baseline
-- **CPU Impact**: <0.5% server tick time
-- **Startup Time**: <100ms initialization
-- **Network Overhead**: Zero additional packets
+## Usage Examples
 
-### Security Features
-- **Code Obfuscation**: Build process includes package relocation
-- **Minimized JAR**: Unused dependencies stripped
-- **Safe Threading**: ConcurrentHashMap prevents race conditions
-
-## 🚀 Installation & Deployment
-
-### Production Deployment
-1. Download optimized JAR from releases
-2. Place in server `plugins/` directory
-3. Restart server (hot-reload not recommended)
-4. Verify with `/regionplus` command
-5. Test placeholders with `/papi parse`
-
-### Development Setup
-```bash
-git clone https://github.com/akatriggered/RegionPlus
-cd RegionPlus
-./gradlew shadowJar
+### Scoreboard
+```yaml
+title: "&6Server Info"
+lines:
+  - "&7Region: &a%regionplus_current_region%"
+  - "&7Players here: &e%regionplus_players_%regionplus_current_region%%"
+  - "&7Total regions: &b%regionplus_total_regions%"
 ```
 
-## 🎯 Target Audience
+### Chat Format
+```yaml
+format: "&7[%regionplus_current_region%&7] &f%player_name%: %message%"
+```
 
-### Primary Users
-- **Server Administrators** seeking region integration
-- **Plugin Developers** needing region data access
-- **Community Managers** wanting dynamic displays
+### Region-specific Messages
+```yaml
+# Using ConditionalCommands or similar
+- "regionplus_in_spawn == true ? &aWelcome to spawn! : &7You left spawn"
+```
 
-### Server Types
-- **Survival Servers** with protected areas
-- **Creative Servers** with plot systems
-- **Minigame Servers** with arena regions
-- **RPG Servers** with location-based features
+## Performance
 
-## 🔮 Future Roadmap
+- **Memory**: ~2MB RAM usage
+- **CPU**: <1% server tick time
+- **Storage**: No database required
+- **Network**: Zero network overhead
 
-### Planned Features
-- Region analytics and statistics
-- Custom region events and triggers
-- Advanced caching mechanisms
-- Multi-world optimization
-- API for other plugins
+## Support
 
-### Community Requests
-- Database storage options
-- Custom placeholder formats
-- Region group support
-- Performance monitoring tools
-
-**RegionPlus** transforms WorldGuard from a protection tool into a dynamic server feature, enabling countless possibilities for server customization and player engagement.
+For issues or feature requests, please visit our GitHub repository.
